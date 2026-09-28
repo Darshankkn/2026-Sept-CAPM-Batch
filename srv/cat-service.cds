@@ -23,6 +23,7 @@ service CatalogService {
         function top20Employees() returns array of EmployeeSrv;
 
     };
+    
 
  
     entity BusinessPartnerSrv as projection on database.master.BusinessPartners;

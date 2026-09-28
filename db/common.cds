@@ -22,7 +22,6 @@ type AmountT: Decimal(10, 2) @(
     sap.unit:'CURRENCY_CODE'
 );
 
-
 aspect Amount {
     GROSS_AMOUNT: AmountT;
     NET_AMOUNT:AmountT;
