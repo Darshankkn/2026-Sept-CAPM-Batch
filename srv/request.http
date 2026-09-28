@@ -1,0 +1,259 @@
+### Read employee data
+GET http://localhost:4004/odata/v4/catalog/EmployeeSrv
+
+
+### Create employee
+POST http://localhost:4004/odata/v4/catalog/createEmployee
+Content-Type: application/json
+
+{
+    "Currency_code":"USD",
+    "ID":"1e8b1a0b-3986-4b3b-8s90-fdf7fa3339e4",
+    "accountNUmber":null,
+    "bankId":null,
+    "bankName":null,
+    "email":null,
+    "gender":"M",
+    "language":"E",
+    "loginName":"darshan",
+    "nameFirst":"vansh",
+    "nameIntials":null,
+    "nameLast":"KN",
+    "nameMiddle":null,
+    "phoneNumber":"87665776733",
+    "salaryAmount":"45000"
+}
+
+###
+POST http://localhost:4004/odata/v4/catalog/updateEmployee
+Content-Type: application/json
+
+{
+    "ID":"1e8b1a0b-3986-4b3b-8s90-fdf7fa3339e",
+    "salaryAmount":"20000.00",
+    "Currency_code":"USD"
+}
+
+
+###
+POST http://localhost:4004/odata/v4/catalog/createProduct
+Content-Type: application/json
+
+{
+  "NODE_KEY": "PRD000000000001",
+  "PRODUCT_ID": "LAPTOP001",
+  "TYPE_CODE": "HW",
+  "CATEGORY": "Electronics",
+  "DESCRIPTION": "Dell Inspiron 15 Laptop",
+  "TAX_TARRIF_CODE": 1001,
+  "MEASURE_UNIT": "EA",
+  "WEIGHT_MEASURE": 1.85,
+  "WEIGHT_UNIT": "KG",
+  "PRICE": 55000,
+  "CURRENCT_CODE": "INR",
+  "WIDTH": 35.80,
+  "DEPTH": 24.20,
+  "HEIGHT": 1.90,
+  "DIM_UNIT": "CM"
+}
+
+###
+###
+POST http://localhost:4004/odata/v4/catalog/deleteEmployee
+Content-Type: application/json
+
+{
+  "ID": "02BD2137-0890-1EEA-A6C2-BB55C19787FB"
+}
+
+###getting top 10 records
+http://localhost:4004/odata/v4/catalog/ProductsSrv?$top=10
+
+###Skip first 10 records and print top 10 records
+http://localhost:4004/odata/v4/catalog/ProductsSrv?$skip=10&$top=10
+
+###filter products based on category
+http://localhost:4004/odata/v4/catalog/ProductsSrv?$filter=CATEGORY eq 'Flat Screen Monitors'
+
+###count the total records
+http://localhost:4004/odata/v4/catalog/ProductsSrv/$count
+
+###applying two filters
+http://localhost:4004/odata/v4/catalog/ProductsSrv?$filter=CATEGORY eq 'Flat Screen Monitors'&DIM_UNIT=CM
+
+###Selecting only required categories
+http://localhost:4004/odata/v4/catalog/ProductsSrv?$select=PRODUCT_ID,CATEGORY,PRICE
+
+###Order by 
+http://localhost:4004/odata/v4/catalog/ProductsSrv?$select=PRODUCT_ID,CATEGORY,PRICE&orderby=PRODUCT_ID asc
+
+###Single record using id
+http://localhost:4004/odata/v4/catalog/ProductsSrv(74867AD200E41EDBA5D8B06B26EC6052)/PRODUCT_ID
+
+###expand 
+http://localhost:4004/odata/v4/catalog/PurchaseOrderSrv?$expand=Items
+
+###Select all category names with their descriptions from the Categories table
+services.odata.org/V4/Northwind/Northwind.svc/Customers
+
+###
+services.odata.org/V4/Northwind/Northwind.svc/Categories?$select=CategoryName,Description
+
+###select the contact name, customer id, and company name of all Customers in London
+services.odata.org/V4/Northwind/Northwind.svc/Customers?$filter=City eq 'London'&$select=CustomerID,CompanyName,ContactName,City
+
+###get data from suppliers where fax is not null
+services.odata.org/V4/Northwind/Northwind.svc/Suppliers?$filter=Fax ne null
+
+###
+services.odata.org/V4/Northwind/Northwind.svc/Orders?$select=CustomerID&$filter=OrderDate ge 1997-01-01T00:00:00Z and OrderDate lt 1998-01-01T00:00:00Z
+
+###
+services.odata.org/V4/Northwind/Northwind.svc/Customers?$select=CompanyName,ContactName&$filter=Country eq 'Mexico' or Country eq 'Sweden' or Country eq 'Germany'
+
+###dicontinued products 
+services.odata.org/V4/Northwind/Northwind.svc/Products/$count?$filter=Discontinued eq true
+
+###
+https://services.odata.org/V4/Northwind/Northwind.svc/Categories?$select=CategoryName&$filter=startswith(CategoryName,'Co')
+
+###
+https://services.odata.org/V4/Northwind/Northwind.svc/Suppliers?$select=CompanyName,City,PostalCode,Country&$filter=contains(Address,%27rue%27)&$orderby=CompanyName%20asc
+
+###
+https://services.odata.org/V4/Northwind/Northwind.svc/Order_Details_Extendeds?$select=ProductID,Quantity&%apply=groupby(ProductID)
+
+###
+https://services.odata.org/V4/Northwind/Northwind.svc/Order_Details?$apply=groupby((ProductID),aggregate(Quantity with sum as TotalQuantity))
+
+###
+https://services.odata.org/V4/Northwind/Northwind.svc/Orders?$expand=Customer($select=CompanyName,Address),Shipper&$filter=Shipper/CompanyName eq 'Speedy Express'
+
+###
+
+https://services.odata.org/V4/Northwind/Northwind.svc/Suppliers?$select=CompanyName,ContactName,Region,ContactTitle&$filter=Region%20ne%20null
+
+###
+https://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName&$filter=CategoryID%20eq%202
+
+###
+https://services.odata.org/V4/Northwind/Northwind.svc/Shippers?$expand=Orders($select=Freight)
+
+###10
+https://services.odata.org/V4/Northwind/Northwind.svc/Employees?$select=FirstName,LastName
+
+###11
+https://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName,UnitsInStock&$filter=UnitsInStock gt 100
+
+###12
+https://services.odata.org/V4/Northwind/Northwind.svc/Employees?$select=FirstName,LastName,Address,City,Region
+
+###13
+https://services.odata.org/V4/Northwind/Northwind.svc/Employees?$select=FirstName,LastName,Address,City,Region,Country&$filter=Country%20eq%20%27USA%27
+
+###14
+https://services.odata.org/V4/Northwind/Northwind.svc/Employees?$select=FirstName,LastName,Address,City,Region,BirthDate&$filter=BirthDate%20lt%201976-01-01T00:00:00Z
+
+###15
+https://services.odata.org/V4/Northwind/Northwind.svc/Employees?$select=Title,FirstName,LastName&$expand=Orders($expand=Order_Details($expand=Product))&$filter=Orders/any(o:o/Order_Details/any(od:od/Product/ProductName%20eq%20%27Gravad%20Lax%27%20or%20od/Product/ProductName%20eq%20%27Mishi%20Kobe%20Niku%27))
+
+###
+PUT http://localhost:4004/odata/v4/catalog/EmployeeSrv/02BD2137-0890-1EEA-A6C2-BB55C197A7FB
+Content-Type: application/json
+
+{
+  "salaryAmount":"200000.00",
+  "Currency_code":"USD"
+
+}
+
+###
+PUT http://localhost:4004/odata/v4/catalog/ProductsSrv/74867AD200E41EDBA5D8B06B26EB4052
+Content-Type: application/json
+
+{
+  "PRICE": "1",
+  "CURRENCT_CODE":"USD"
+}
+
+###2
+PUT http://localhost:4004/odata/v4/catalog/AdressesSrv/74867AD200E41EDBA5D8B06885668052
+Content-Type: application/json
+
+{
+    "COUNTRY": "US"
+}
+
+###3
+PUT http://localhost:4004/odata/v4/catalog/EmployeeSrv/02BD2137-0890-1EEA-A6C2-BB55C197A7FB
+Content-Type: application/json
+
+{
+    "phoneNumber": "+9442071234567"
+}
+
+###4
+PUT http://localhost:4004/odata/v4/catalog/BusinessPartnerSrv/74867AD200E41EDBA5D8B06885A56052
+Content-Type: application/json
+
+{
+    "COMPANY_NAME": "CAP"
+}
+
+###5
+PUT http://localhost:4004/odata/v4/catalog/PurchaseItemSrv/74867AD200E41EDBA5D8B06B26F60052
+Content-Type: application/json
+
+{
+    "PO_ITEMS_POS": "20"
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/getHighestSalariedEmployees()
+
+###
+GET http://localhost:4004/odata/v4/catalog/getHighestPricedProducts()
+
+###
+POST http://localhost:4004/odata/v4/catalog/EmployeeSrv
+Content-Type: application/json
+
+{
+    "Currency_code":"USD",
+    "ID":"1e8b1a0b-3986-4b3b-8s90-fdf7fa3339e",
+    "accountNUmber":null,
+    "bankId":null,
+    "bankName":null,
+    "email":null,
+    "gender":"M",
+    "language":"E",
+    "loginName":"darshan",
+    "nameFirst":"vansh",
+    "nameIntials":null,
+    "nameLast":"KN",
+    "nameMiddle":null,
+    "phoneNumber":"87665776733",
+    "salaryAmount":"45000"
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/PurchaseOrderSrv/74867AD200E41EDBA5D8B0C98DC28052/largestOrder()
+
+###
+POST http://localhost:4004/odata/v4/catalog/PurchaseOrderSrv/74867AD200E41EDBA5D8B0C98DC28052/discountPrice
+Content-Type: application/json
+
+{}
+
+###
+GET http://localhost:4004/odata/v4/catalog/EmployeeSrv/02BD2137-0890-1EEA-A6C2-BB55C19807FB/top20Employees()
+
+###
+POST http://localhost:38907/odata/v4/catalog/EmployeeSrv/02BD2137-0890-1EEA-A6C2-BB55C19807FB/IncreaseSal
+Content-Type: application/json
+
+{
+}
+
+###
+GET http://localhost:4004/odata/v4/catalog/getUtilities()
